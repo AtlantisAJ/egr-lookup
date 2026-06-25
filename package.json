@@ -1,0 +1,11 @@
+{
+  "name": "egr-lookup",
+  "private": true,
+  "version": "3.0.0",
+  "scripts": {
+    "dev:backend": "cd backend && uvicorn app.main:app --reload --port 8765",
+    "dev:frontend": "cd frontend && npm run dev",
+    "install:all": "cd backend && pip install -r requirements.txt && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build"
+  }
+}

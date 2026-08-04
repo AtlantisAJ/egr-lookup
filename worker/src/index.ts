@@ -12,6 +12,7 @@ export interface Env {
 }
 
 const ALLOWED_ORIGINS = new Set([
+  "https://atlantisaj.github.io",
   "https://AtlantisAJ.github.io",
   "http://localhost:5173",
   "http://127.0.0.1:5173",
@@ -19,7 +20,7 @@ const ALLOWED_ORIGINS = new Set([
 
 function corsHeaders(origin: string | null): HeadersInit {
   const allowed =
-    origin && ALLOWED_ORIGINS.has(origin) ? origin : "https://AtlantisAJ.github.io";
+    origin && ALLOWED_ORIGINS.has(origin) ? origin : "https://atlantisaj.github.io";
   return {
     "Access-Control-Allow-Origin": allowed,
     "Access-Control-Allow-Methods": "GET, OPTIONS",

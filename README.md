@@ -1,13 +1,13 @@
 # ЕГР РБ Lookup
 
-Локальный интерфейс к открытому API [egr.gov.by](http://egr.gov.by/api/v2/egr).
+Локальный и онлайн-интерфейс к открытому API [egr.gov.by](http://egr.gov.by/api/v2/egr).
 
-**Стек:** FastAPI (прокси) + React + Vite + Tailwind CSS
+**Онлайн:** [https://AtlantisAJ.github.io/egr-lookup/](https://AtlantisAJ.github.io/egr-lookup/)  
+**Стек:** FastAPI / Cloudflare Worker (прокси) + React + Vite + Tailwind CSS
 
-## Быстрый старт
+## Быстрый старт (локально)
 
 ```bash
-cd ~/egr-lookup
 chmod +x start.sh
 ./start.sh
 ```
@@ -28,6 +28,37 @@ npm install
 npm run dev
 ```
 
+Локально фронт ходит в FastAPI через Vite proxy. В проде — в Cloudflare Worker (`VITE_API_BASE`).
+
+## Онлайн-деплой (GitHub Pages + Cloudflare Worker)
+
+### 1. Cloudflare Worker
+
+1. Создай аккаунт на [Cloudflare](https://dash.cloudflare.com/)
+2. Account ID: Workers & Pages → Overview (справа)
+3. API Token: My Profile → API Tokens → Create Token → шаблон **Edit Cloudflare Workers**
+4. В репозитории GitHub: **Settings → Secrets and variables → Actions → Secrets**
+   - `CLOUDFLARE_API_TOKEN`
+   - `CLOUDFLARE_ACCOUNT_ID`
+5. Запусти workflow **Deploy Cloudflare Worker** (Actions → Run workflow) или сделай push в `main` с изменениями в `worker/`
+6. Скопируй URL вида `https://egr-lookup.<subdomain>.workers.dev`
+
+Локальная проверка Worker:
+
+```bash
+cd worker
+npm install
+npm run dev
+```
+
+### 2. GitHub Pages
+
+1. **Settings → Pages → Build and deployment → Source:** GitHub Actions
+2. **Settings → Secrets and variables → Actions → Variables:** добавь `VITE_API_BASE` = URL Worker из шага выше (без слэша в конце)
+3. Запусти workflow **Deploy GitHub Pages** или push в `main` с изменениями в `frontend/`
+
+Сайт: **https://AtlantisAJ.github.io/egr-lookup/**
+
 ## Возможности
 
 - Поиск по УНП (основное / история / GO / всё сразу)
@@ -42,10 +73,11 @@ npm run dev
 
 ```
 egr-lookup/
-├── backend/          # FastAPI + httpx
-├── frontend/         # React + Vite + Tailwind
+├── backend/          # FastAPI + httpx (локальная разработка)
+├── worker/           # Cloudflare Worker (прод-прокси)
+├── frontend/         # React + Vite + Tailwind → GitHub Pages
 ├── egr_lookup.py     # legacy (один файл, v2)
-└── start.sh          # запуск всего
+└── start.sh          # локальный запуск
 ```
 
 ## Примечание

@@ -11,10 +11,11 @@ env/
 .env.*
 !.env.example
 
-# Node / frontend
+# Node / frontend / worker
 node_modules/
 frontend/dist/
 frontend/.vite/
+worker/.wrangler/
 *.tsbuildinfo
 
 # Logs

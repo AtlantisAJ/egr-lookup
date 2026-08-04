@@ -1,0 +1,6 @@
+name = "egr-lookup"
+main = "src/index.ts"
+compatibility_date = "2025-06-01"
+
+[vars]
+SWAGGER_URL = "https://egr.gov.by/api/v2/api-docs"

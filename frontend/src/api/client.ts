@@ -1,7 +1,9 @@
 import type { ApiBlock, Meta, UnpScope } from "../types";
 
-async function get<T>(url: string): Promise<T> {
-  const res = await fetch(url);
+const API_BASE = (import.meta.env.VITE_API_BASE as string | undefined) ?? "";
+
+async function get<T>(path: string): Promise<T> {
+  const res = await fetch(`${API_BASE}${path}`);
   if (!res.ok) {
     const err = await res.json().catch(() => ({}));
     throw new Error((err as { detail?: string }).detail ?? res.statusText);

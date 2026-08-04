@@ -5,7 +5,9 @@
   "scripts": {
     "dev:backend": "cd backend && uvicorn app.main:app --reload --port 8765",
     "dev:frontend": "cd frontend && npm run dev",
-    "install:all": "cd backend && pip install -r requirements.txt && cd ../frontend && npm install",
-    "build": "cd frontend && npm run build"
+    "dev:worker": "cd worker && npm run dev",
+    "install:all": "cd backend && python3 -m pip install -r requirements.txt && cd ../frontend && npm install && cd ../worker && npm install",
+    "build": "cd frontend && npm run build",
+    "deploy:worker": "cd worker && npm run deploy"
   }
 }

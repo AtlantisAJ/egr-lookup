@@ -1,7 +1,7 @@
-const API_BASE = "http://egr.gov.by/api/v2/egr";
-const RETRIES = 6;
-const RETRY_SLEEP_MS = 1500;
-const TIMEOUT_MS = 25_000;
+const API_BASE = "https://egr.gov.by/api/v2/egr";
+const RETRIES = 3;
+const RETRY_SLEEP_MS = 800;
+const TIMEOUT_MS = 12_000;
 const MAX_CONCURRENCY = 8;
 
 let active = 0;
